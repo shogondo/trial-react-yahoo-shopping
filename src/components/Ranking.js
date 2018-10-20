@@ -1,19 +1,38 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 
-export function Ranking({ categoryId }) {
-    return (
-        <div>
-            <h2>Ranking Component</h2>
-            <p>Category ID: {categoryId}</p>
-        </div>
-    );
+export class Ranking extends Component {
+    static defaultProps = {
+        categoryId: '1'
+    }
+
+    static propTypes = {
+        categoryId: PropTypes.string
+    }
+
+    componentWillMount() {
+        this.props.onMount(this.props.categoryId);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.categoryId !== nextProps.categoryId) {
+            this.props.onUpdate(nextProps.categoryId);
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <h2>Ranking Component</h2>
+                <p>Category ID: {this.props.categoryId}</p>
+            </div>
+        );
+    }
 }
 
-Ranking.propTypes = {
-    categoryId: PropTypes.string
-};
+// Ranking.propTypes = {
+// };
 
-Ranking.defaultProps = {
-    categoryId: '1'
-};
+// Ranking.defaultProps = {
+//     categoryId: '1'
+// };
