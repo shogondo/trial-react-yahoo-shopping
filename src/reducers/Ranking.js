@@ -2,19 +2,19 @@ const getRanking = (response) => {
     const ranking = [];
     const itemLength = response.ResultSet.totalResultsReturned;
     for (let index = 0; index < itemLength; index++) {
-        const item = response.ResultSet['0'].Reslt[index + ''];
+        const item = response.ResultSet[0].Result[index];
         ranking.push({
             code: item.Code,
             name: item.Name,
             url: item.Url,
-            imageUrl: item.image.Medium
+            imageUrl: item.Image.Medium
         });
     }
     return ranking;
 };
 
 const initialState = {
-    categoryId: undefined,
+    category: undefined,
     rnaking: undefined,
     error: false
 };
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case 'START_REQUEST':
             return {
-                categoryId: action.payload.categoryId,
+                category: action.payload.category,
                 ranking: undefined,
                 error: false
             };
